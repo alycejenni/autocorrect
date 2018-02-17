@@ -1,9 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='autocorrect',
     version='0.1',
-    py_modules=['autocorrect'],
+    packages=find_packages(),
     package_data={'autocorrect': ['autocorrect/data/autocorrect.json']},
     include_package_data=True,
     install_requires=[
