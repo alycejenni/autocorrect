@@ -1,26 +1,11 @@
 import click
+from os.path import expanduser
 
 from autocorrect.models import coll, meta
 
 
-def defaultconfig():
-    return {
-        'name': '',
-        'header': [
-            'lines of header'
-            ],
-        'imports': {
-            'exclude': [],
-            'conditional_exclude': {},
-            'conditional_include': {
-                'module_name': ['submodule_one', 'submodule_two']
-                }
-            }
-        }
-
-
 @click.group(invoke_without_command=True)
-@click.option('--config', default='~/.config/autocorrect/autocorrect.json')
+@click.option('--config', default='{0}/.config/autocorrect/autocorrect.json'.format(expanduser('~')))
 @click.option('--name')
 @click.argument('folder', default='.')
 @click.pass_context
