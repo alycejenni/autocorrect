@@ -19,6 +19,9 @@ def cli(ctx, config, name, folder):
     ctx.obj = {
         'FOLDER': fol
         }
+    if ctx.invoked_subcommand is None:
+        click.echo('This is your config:')
+        click.echo(conf)
 
 
 @cli.command()

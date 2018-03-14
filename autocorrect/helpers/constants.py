@@ -1,7 +1,8 @@
 import re
-from types import SimpleNamespace
+from collections import namedtuple
 
-typenames = SimpleNamespace(**{
+TypeNames = namedtuple('TypeNames', 'strings ascii comment documentable imports')
+typenames = TypeNames(**{
     'strings': ['string', 'unicodestring', 'rawstring', 'binarystring',
                 'unicoderawstring', 'binaryrawstring'],
     'ascii': ['string'],
@@ -10,7 +11,8 @@ typenames = SimpleNamespace(**{
     'imports': ['import', 'fromimport']
     })
 
-regex = SimpleNamespace(**{
+Regexes = namedtuple('Regexes', 'single_quote triple_quote prefix content')
+regex = Regexes(**{
     'single_quote': re.compile('(?:^([A-Za-z]+)?(\")(?!\"{2}))|((?<!\"{2})\"$)'),
     'triple_quote': re.compile('(?:^([A-Za-z]+)?(\"){3})|(\"{3}$)'),
     'prefix': re.compile('(?:^([A-Za-z]*)(?=[\"\']))'),
