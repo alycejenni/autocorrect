@@ -1,7 +1,7 @@
 import click
 from os.path import expanduser
 
-from autocorrect.models import coll, meta
+from autocorrect import get_config, Directory
 
 
 @click.group(invoke_without_command=True)
@@ -11,11 +11,11 @@ from autocorrect.models import coll, meta
 @click.pass_context
 def cli(ctx, config, name, folder):
     try:
-        conf = meta.get_config(config, name)
+        conf = get_config(config, name)
     except FileNotFoundError:
         click.echo('That config file does not exist. Using the default.')
-        conf = meta.get_config()
-    fol = coll.Directory(folder, conf)
+        conf = get_config()
+    fol = Directory(folder, conf)
     ctx.obj = {
         'FOLDER': fol
         }

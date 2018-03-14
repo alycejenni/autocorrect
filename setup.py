@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='autocorrect',
-    version='0.1',
+    version='0.1.1',
     packages=find_packages(),
     package_data={'autocorrect': ['data/autocorrect.json']},
     include_package_data=True,
