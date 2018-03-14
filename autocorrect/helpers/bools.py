@@ -17,10 +17,10 @@ def isforbidden(import_name, config):
     if any([x in import_name for x in exclude]):
         return True
     parts = import_name.split('.', 1)
-    if parts[0] in conditional_exclude.keys():
+    if len(parts) > 1 and parts[0] in conditional_exclude.keys():
         if any([x == parts[1] for x in conditional_exclude.get(parts[0])]):
             return True
-    if parts[0] in conditional_include.keys():
+    if len(parts) > 1 and parts[0] in conditional_include.keys():
         if all([x != parts[1] for x in conditional_include.get(parts[0])]):
             return True
     return False
