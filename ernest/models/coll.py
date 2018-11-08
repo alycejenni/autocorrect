@@ -3,7 +3,7 @@ import os
 from collections import OrderedDict
 from functools import reduce
 
-from autocorrect.helpers.methods import combine, pretty
+from ernest.helpers.common import pretty, combine
 from .factories import FileFactory
 
 

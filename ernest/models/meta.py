@@ -16,7 +16,7 @@ class Metadata(object):
 
 def get_config(path=None, name_override=None):
     if path is None:
-        content = json.loads(pkg_resources.resource_string('autocorrect', 'data/autocorrect.json'))
+        content = json.loads(pkg_resources.resource_string('ernest', 'data/ernest.json'))
     else:
         with open(path, 'r') as f:
             content = json.load(f)

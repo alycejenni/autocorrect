@@ -1,11 +1,11 @@
 import click
 from os.path import expanduser
 
-from autocorrect import get_config, Directory
+from ernest import get_config, Directory
 
 
 @click.group(invoke_without_command=True)
-@click.option('--config', default='{0}/.config/autocorrect/autocorrect.json'.format(expanduser('~')))
+@click.option('--config', default='{0}/.config/ernest/ernest.json'.format(expanduser('~')))
 @click.option('--name')
 @click.argument('folder', default='.')
 @click.pass_context

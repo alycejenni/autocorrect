@@ -1,4 +1,4 @@
-from autocorrect.helpers.methods import pretty
+from ernest.helpers.common import pretty
 
 
 class FileItem(object):

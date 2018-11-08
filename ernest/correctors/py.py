@@ -2,7 +2,7 @@ import re
 
 import redbaron
 
-from .constants import regex
+from ernest.helpers.py import PyConstants
 
 
 class PyCorrector(object):
@@ -48,19 +48,19 @@ class PyCorrector(object):
             'preserve_raw_strings'
         ] if 'preserve_raw_strings' in self.config.keys() else True
         for node in nodes:
-            prefix = regex.prefix.search(node.value)
+            prefix = PyConstants.regex.prefix.search(node.value)
             if prefix and preserve_raw and 'r' in prefix.group(1):
                 new_prefix = 'ur'
             else:
                 new_prefix = 'u'
-            content = regex.content.search(node.value)
+            content = PyConstants.regex.content.search(node.value)
             if content:
                 content = content.groupdict().get('content', '')
             else:
                 content = ''
             if re.match('^[/].*', content):
                 continue
-            node.value = regex.prefix.sub(new_prefix, node.value)
+            node.value = PyConstants.regex.prefix.sub(new_prefix, node.value)
 
     def _invalid(self, pyfile):
         print('Invalid method.')
@@ -77,10 +77,10 @@ class PyCorrector(object):
     @staticmethod
     def _replace_quotes(string):
         # doing re.sub results in weird characters
-        single = regex.single_quote.finditer(string)
+        single = PyConstants.regex.single_quote.finditer(string)
         for match in single:
             string = string[:match.span()[0]] + "'" + string[match.span()[1]:]
-        triple = regex.triple_quote.finditer(string)
+        triple = PyConstants.regex.triple_quote.finditer(string)
         for match in triple:
             string = string[:match.span()[0]] + "'''" + string[match.span()[1]:]
         return string

@@ -1,18 +1,6 @@
 import itertools
 from collections import OrderedDict
 
-import redbaron
-
-
-def get_dotproxy_names(node):
-    if isinstance(node, redbaron.DotProxyList):
-        return [n.value for n in node.node_list.data if
-                isinstance(n, redbaron.NameNode)]
-    elif hasattr(node, 'value'):
-        return get_dotproxy_names(node.value)
-    else:
-        return get_dotproxy_names(node.data[0][0])
-
 
 def nodes_stats(nodes):
     sorted_dict = OrderedDict()
