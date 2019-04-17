@@ -6,16 +6,36 @@ class FileItem(object):
     A generic file type.
     '''
     ext_ = None
+    name = 'file'
+    correctors = []
 
     def __init__(self, meta):
         self.meta = meta
+        try:
+            self.content = self.read()
+        except UnicodeDecodeError:
+            self.content = ''
+        self._correctors = [c(meta.config) for c in self.correctors]
+
+    @classmethod
+    def match(cls, meta):
+        return False
 
     def read(self):
         with open(self.meta.path, 'r') as f:
             return f.read()
 
     def correct(self, *methods):
-        raise NotImplementedError('corrections not implemented for this filetype')
+        if 0 or 'all' in methods:
+            methods = [0]
+        funcs = [m for c in self._correctors for m in c.get(methods) if m is not None]
+        for m in funcs:
+            m(self)
+        self.save()
+
+    def save(self):
+        with open(self.meta.path, 'w') as f:
+            f.write(self.content)
 
     @property
     def stats(self):

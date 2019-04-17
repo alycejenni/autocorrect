@@ -44,11 +44,11 @@ def fix(ctx, ext, methods):
 
 
 @cli.command()
-@click.argument('exts', nargs=-1, required=False)
+@click.argument('types', nargs=-1, required=False)
 @click.pass_context
-def stats(ctx, exts):
+def stats(ctx, types):
     fol = ctx.obj['FOLDER']
-    if len(exts) > 0:
-        click.echo(fol.filter(exts))
+    if len(types) > 0:
+        click.echo(fol.filter(types))
     else:
         click.echo(fol)

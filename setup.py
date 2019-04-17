@@ -10,13 +10,17 @@ DESCRIPTION = 'A CLI-based tool for making bulk changes to file text.'
 URL = 'https://github.com/alycejenni/ernest'
 EMAIL = 'alycejenni@gmail.com'
 AUTHOR = 'Alice Butcher'
-VERSION = '0.1.4'
+VERSION = '0.1.5'
 
 REQUIRED = ['click', 'redbaron']
 
-with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'),
-          encoding='utf-8') as f:
-    LONG_DESCRIPTION = f.read()
+readme = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md')
+try:
+    with open(readme, 'r', encoding='utf-8') as f:
+        LONG_DESCRIPTION = f.read()
+except TypeError:
+    with open(readme, 'r') as f:
+        LONG_DESCRIPTION = f.read()
 
 setup(
     name=NAME,

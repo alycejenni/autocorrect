@@ -21,7 +21,7 @@ class Directory(object):
         factory = FileFactory(self.config)
         return {k: list(v) for k, v in itertools.groupby(sorted(
             [factory(os.path.join(top, f)) for top, sub, files in os.walk(self.path)
-             for f in files], key=lambda x: x.meta.ext), key=lambda x: x.meta.ext)}
+             for f in files], key=lambda x: x.name), key=lambda x: x.name)}
 
     @property
     def stats(self):
@@ -32,9 +32,9 @@ class Directory(object):
             stats[k] = OrderedDict(sorted(stats[k].items()))
         return OrderedDict(sorted(stats.items()))
 
-    def filter(self, exts):
+    def filter(self, types):
         content = [item for sublist in
-                   [pretty(k, v, 0) for k, v in self.stats.items() if k in exts]
+                   [pretty(k, v, 0) for k, v in self.stats.items() if k in types]
                    for item in sublist]
         return '\n'.join([self.path] + content) + '\n'
 

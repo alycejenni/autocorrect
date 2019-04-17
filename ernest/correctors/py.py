@@ -3,23 +3,18 @@ import re
 import redbaron
 
 from ernest.helpers.py import PyConstants
+from ._base import Corrector
 
 
-class PyCorrector(object):
+class PyCorrector(Corrector):
     def __init__(self, config):
-        self.config = config
-        self.funcmap = {
+        super(PyCorrector, self).__init__(config)
+        self.funcmap.update({
             'headers': self._header,
             'literal': self._literal_quotes,
             'docstring': self._docstring_quotes,
             'ascii': self._ascii
-            }
-
-    def get(self, methods):
-        if methods == [0]:
-            return self.funcmap.values()
-        else:
-            return [self.funcmap.get(m, self._invalid) for m in methods]
+            })
 
     def _header(self, pyfile):
         root = pyfile.tree
@@ -61,9 +56,6 @@ class PyCorrector(object):
             if re.match('^[/].*', content):
                 continue
             node.value = PyConstants.regex.prefix.sub(new_prefix, node.value)
-
-    def _invalid(self, pyfile):
-        print('Invalid method.')
 
     def _correct_quotes(self, nodes):
         for node in nodes:

@@ -11,12 +11,17 @@ class Pyfile(FileItem):
     A python file.
     '''
     ext_ = 'py'
+    name = 'py'
+    correctors = [PyCorrector]
 
     def __init__(self, meta):
         super(Pyfile, self).__init__(meta)
         self.tree = redbaron.RedBaron(self.read())
         self._isequal = self.read().strip() == self.tree.dumps().strip()
-        self._corrector = PyCorrector(meta.config)
+
+    @classmethod
+    def match(cls, meta):
+        return meta.ext == cls.ext_
 
     @property
     def documentable(self):
@@ -51,14 +56,6 @@ class Pyfile(FileItem):
     @property
     def forbidden_imports(self):
         return [i for i in self.imports if PyBools.isforbidden(i, self.meta.config)]
-
-    def correct(self, *methods):
-        if 0 or 'all' in methods:
-            methods = [0]
-        funcs = self._corrector.get(methods)
-        for m in funcs:
-            m(self)
-        self.save()
 
     def save(self):
         if not self._isequal:
