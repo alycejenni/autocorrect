@@ -10,7 +10,7 @@ DESCRIPTION = 'A CLI-based tool for making bulk changes to file text.'
 URL = 'https://github.com/alycejenni/ernest'
 EMAIL = 'alycejenni@gmail.com'
 AUTHOR = 'Alice Butcher'
-VERSION = '0.1.5'
+VERSION = '0.1.6'
 
 REQUIRED = ['click', 'redbaron']
 
